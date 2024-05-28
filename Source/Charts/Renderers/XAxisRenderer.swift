@@ -189,12 +189,12 @@ open class XAxisRenderer: NSObject, AxisRenderer
         case .bottom:
             drawLabels(context: context, pos: viewPortHandler.contentBottom - yOffset - axis.labelRotatedHeight - 5, anchor: CGPoint(x: 0.5, y: 0.0))
             
+        case .bottomInside:
+            drawLabels(context: context, pos: viewPortHandler.contentBottom - yOffset - axis.labelRotatedHeight - 5, anchor: CGPoint(x: 0.5, y: 0.0))
+                       
         case .bothSided:
             drawLabels(context: context, pos: viewPortHandler.contentTop - yOffset, anchor: CGPoint(x: 0.5, y: 1.0))
             drawLabels(context: context, pos: viewPortHandler.contentBottom + yOffset, anchor: CGPoint(x: 0.5, y: 0.0))
-                       
-        case .bottomInside:
-            drawLabels(context: context, pos: viewPortHandler.contentBottom - yOffset - axis.labelRotatedHeight, anchor: CGPoint(x: 0.5, y: 0.0))
         }
     }
     
@@ -315,7 +315,7 @@ open class XAxisRenderer: NSObject, AxisRenderer
                           anchor: anchor,
                           angleRadians: labelRotationAngleRadians)
                 
-                var minString = "\(axis.minDay )"
+                var minString = "\(axis.minDay)"
                 if minString.count == 1 {
                     minString = "0\(minString)"
                 }
@@ -358,15 +358,6 @@ open class XAxisRenderer: NSObject, AxisRenderer
 //>>>>>>> upstream/master
                 }
             }
-            
-            drawLabel(context: context,
-                      formattedLabel: label,
-                      x: position.x,
-                      y: pos,
-                      attributes: labelAttrs,
-                      constrainedTo: labelMaxSize,
-                      anchor: anchor,
-                      angleRadians: labelRotationAngleRadians)
         }
     }
     

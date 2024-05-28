@@ -783,6 +783,7 @@ open class LineChartRenderer: LineRadarRenderer
                         rect.origin.y = pt.y - circleHoleRadius
                         rect.size.width = circleHoleDiameter
                         rect.size.height = circleHoleDiameter
+                        
 //>>>>>>> upstream/master
                         
                         if e.y == 1 {
