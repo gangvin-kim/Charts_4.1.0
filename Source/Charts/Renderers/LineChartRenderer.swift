@@ -545,6 +545,11 @@ open class LineChartRenderer: LineRadarRenderer
                 
                 let iconsOffset = dataSet.iconsOffset
                 
+                let circleRadius = dataSet.circleRadius
+                _ = circleRadius * 2.0
+                let circleHoleRadius = dataSet.circleHoleRadius
+                _ = circleHoleRadius * 2.0
+                
                 // make sure the values do not interfear with the circles
                 var valOffset = Int(dataSet.circleRadius * 1.75)
                 
@@ -573,9 +578,51 @@ open class LineChartRenderer: LineRadarRenderer
                         continue
                     }
                     
-                    if dataSet.isDrawValuesEnabled
-                    {
-                        context.drawText(formatter.stringForValue(e.y,
+//<<<<<<< HEAD
+                    if dataSet.isDrawValuesEnabled {
+                        
+//                        dataSet.
+                        
+                        if lineData.leftAxisMax == e.y && e.y != 1 {
+                            context.drawText(
+                                formatter.stringForValue(e.y, // 여기로
+                                                                          entry: e,
+                                                                          dataSetIndex: i,
+                                                                          viewPortHandler: viewPortHandler),
+                                                 at: CGPoint(x: pt.x,
+                                                             y: pt.y - CGFloat(valOffset) - valueFont.lineHeight),
+                                align: .center,
+                                attributes: [NSAttributedString.Key.font: valueFont, NSAttributedString.Key.foregroundColor: dataSet.valueTextColorAt(j)])
+                        } else {
+                            
+                            if e.y == 1 {
+                                context.drawText(
+                                    formatter.stringForValue(e.y, // 여기로
+                                                                              entry: e,
+                                                                              dataSetIndex: i,
+                                                                              viewPortHandler: viewPortHandler),
+                                                     at: CGPoint(x: pt.x,
+                                                                 y: pt.y - (circleRadius * 2) + 1.5),
+                                    align: .center,
+                                    attributes: [NSAttributedString.Key.font: valueFont, NSAttributedString.Key.foregroundColor: NSUIColor.white])
+                            } else {
+                                context.drawText( // 여기를
+                                    formatter.stringForValue(e.y, // 여기로
+                                                                              entry: e,
+                                                                              dataSetIndex: i,
+                                                                              viewPortHandler: viewPortHandler),
+                                                     at: CGPoint(x: pt.x,
+                                                                 y: pt.y - CGFloat(valOffset) - valueFont.lineHeight),
+                                    align: .center,
+                                    attributes: [NSAttributedString.Key.font: valueFont, NSAttributedString.Key.foregroundColor: dataSet.valueTextColorAt(j)])
+                            }
+                            
+                        }
+                        
+//======= y: pt.y - (circleRadius * 2) + 1.5),
+//                    if dataSet.isDrawValuesEnabled
+//                    {
+                        context.drawText(formatter.stringForValue(e.y, // 여기로
                                                                   entry: e,
                                                                   dataSetIndex: i,
                                                                   viewPortHandler: viewPortHandler),
@@ -585,6 +632,7 @@ open class LineChartRenderer: LineRadarRenderer
                                          angleRadians: angleRadians,
                                          attributes: [.font: valueFont,
                                                       .foregroundColor: dataSet.valueTextColorAt(j)])
+//>>>>>>> upstream/master
                     }
                     
                     if let icon = e.icon, dataSet.isDrawIconsEnabled
@@ -662,6 +710,8 @@ open class LineChartRenderer: LineRadarRenderer
             {
                 guard let e = dataSet.entryForIndex(j) else { break }
 
+                
+                
                 pt.x = CGFloat(e.x)
                 pt.y = CGFloat(e.y * phaseY)
                 pt = pt.applying(valueToPixelMatrix)
@@ -733,8 +783,39 @@ open class LineChartRenderer: LineRadarRenderer
                         rect.origin.y = pt.y - circleHoleRadius
                         rect.size.width = circleHoleDiameter
                         rect.size.height = circleHoleDiameter
+//>>>>>>> upstream/master
                         
-                        context.fillEllipse(in: rect)
+                        if e.y == 1 {
+                            context.setFillColor(NSUIColor.init(red: 255.0/255.0, green: 60.0/255.0, blue: 160.0/255.0, alpha: 1.0).cgColor)
+                            rect.origin.x = pt.x - (circleHoleDiameter + 10) / 2
+                            rect.origin.y = pt.y - (circleHoleDiameter + 10) / 2
+                            rect.size.width = circleHoleDiameter + 10
+                            rect.size.height = circleHoleDiameter + 10
+                            
+                            context.fillEllipse(in: rect)
+                            
+                            context.setFillColor(NSUIColor.init(red: 255.0/255.0, green: 60.0/255.0, blue: 160.0/255.0, alpha: 0.3).cgColor)
+                            rect.origin.x = pt.x - (circleHoleDiameter + 20) / 2
+                            rect.origin.y = pt.y - (circleHoleDiameter + 20) / 2
+                            rect.size.width = circleHoleDiameter + 20
+                            rect.size.height = circleHoleDiameter + 20
+                            
+                            context.fillEllipse(in: rect)
+                            
+                        } else {
+                            context.setFillColor(dataSet.circleHoleColor!.cgColor)
+                            rect.origin.x = pt.x - circleHoleRadius
+                            rect.origin.y = pt.y - circleHoleRadius
+                            rect.size.width = circleHoleDiameter
+                            rect.size.height = circleHoleDiameter
+                            
+                            context.fillEllipse(in: rect)
+                        }
+                        
+                        // The hole rect
+                        
+                        
+                        
                     }
                 }
             }
