@@ -618,21 +618,6 @@ open class LineChartRenderer: LineRadarRenderer
                             }
                             
                         }
-                        
-//======= y: pt.y - (circleRadius * 2) + 1.5),
-//                    if dataSet.isDrawValuesEnabled
-//                    {
-                        context.drawText(formatter.stringForValue(e.y, // 여기로
-                                                                  entry: e,
-                                                                  dataSetIndex: i,
-                                                                  viewPortHandler: viewPortHandler),
-                                         at: CGPoint(x: pt.x,
-                                                     y: pt.y - CGFloat(valOffset) - valueFont.lineHeight),
-                                         align: .center,
-                                         angleRadians: angleRadians,
-                                         attributes: [.font: valueFont,
-                                                      .foregroundColor: dataSet.valueTextColorAt(j)])
-//>>>>>>> upstream/master
                     }
                     
                     if let icon = e.icon, dataSet.isDrawIconsEnabled

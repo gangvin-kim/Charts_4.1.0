@@ -187,7 +187,7 @@ open class XAxisRenderer: NSObject, AxisRenderer
             drawLabels(context: context, pos: viewPortHandler.contentTop + yOffset + axis.labelRotatedHeight, anchor: CGPoint(x: 0.5, y: 1.0))
 
         case .bottom:
-            drawLabels(context: context, pos: viewPortHandler.contentBottom - yOffset - axis.labelRotatedHeight - 5, anchor: CGPoint(x: 0.5, y: 0.0))
+            drawLabels(context: context, pos: viewPortHandler.contentBottom + yOffset, anchor: CGPoint(x: 0.5, y: 0.0))
             
         case .bottomInside:
             drawLabels(context: context, pos: viewPortHandler.contentBottom - yOffset - axis.labelRotatedHeight - 5, anchor: CGPoint(x: 0.5, y: 0.0))
@@ -292,6 +292,8 @@ open class XAxisRenderer: NSObject, AxisRenderer
             let label = axis.valueFormatter?.stringForValue(axis.entries[i], axis: axis) ?? ""
             let labelns = label as NSString
             
+//            axis.isAvoidFirstLastClippingEnabled = true
+            
             if axis.isAvoidFirstLastClippingEnabled
             {
                 // avoid clipping of the last
@@ -316,11 +318,13 @@ open class XAxisRenderer: NSObject, AxisRenderer
                           angleRadians: labelRotationAngleRadians)
                 
                 var minString = "\(axis.minDay)"
+                
                 if minString.count == 1 {
                     minString = "0\(minString)"
                 }
+                
                 if label == minString {
-                    let label2 = axis.label2Text[i] 
+                    let label2 = axis.label2Text[i]
                     let labelns = label2 as NSString
 
                     if axis.isAvoidFirstLastClippingEnabled
@@ -351,11 +355,6 @@ open class XAxisRenderer: NSObject, AxisRenderer
                               constrainedTo: labelMaxSize,
                               anchor: anchor,
                               angleRadians: labelRotationAngleRadians)
-//                else if i == 0
-//                { // avoid clipping of the first
-//                    let width = labelns.boundingRect(with: labelMaxSize, options: .usesLineFragmentOrigin, attributes: labelAttrs, context: nil).size.width
-//                    position.x += width / 2.0
-//>>>>>>> upstream/master
                 }
             }
         }
