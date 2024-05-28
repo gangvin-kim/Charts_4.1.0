@@ -320,7 +320,7 @@ open class XAxisRenderer: NSObject, AxisRenderer
                     minString = "0\(minString)"
                 }
                 if label == minString {
-                    let label2 = axis.label2Text[i]
+                    let label2 = axis.label2Text[i] 
                     let labelns = label2 as NSString
 
                     if axis.isAvoidFirstLastClippingEnabled
@@ -440,7 +440,7 @@ open class XAxisRenderer: NSObject, AxisRenderer
 //            position.x = CGFloat(entry)
 //            position.y = CGFloat(entry)
 //            position = position.applying(valueToPixelMatrix)
-//
+//            
 //            drawGridLine(context: context, x: position.x, y: position.y)
 //>>>>>>> upstream/master
         }
@@ -502,7 +502,7 @@ open class XAxisRenderer: NSObject, AxisRenderer
 //        context.addLine(to: CGPoint(x: x, y: viewPortHandler.contentBottom))
 //        context.strokePath()
 //    }
-//
+//    
 //    open func renderLimitLines(context: CGContext)
 //>>>>>>> upstream/master
     {

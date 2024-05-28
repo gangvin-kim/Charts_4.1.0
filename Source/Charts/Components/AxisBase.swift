@@ -191,7 +191,7 @@ open class AxisBase: ComponentBase
     @objc open var isDrawLabelsEnabled: Bool { return drawLabelsEnabled }
     
     /// Are the LimitLines drawn behind the data or in front of the data?
-    /// 
+    ///
     /// **default**: false
     @objc open var isDrawLimitLinesBehindDataEnabled: Bool { return drawLimitLinesBehindDataEnabled }
     
